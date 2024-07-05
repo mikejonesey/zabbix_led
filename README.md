@@ -45,3 +45,14 @@ group_id = 2
 group_name = Linux Servers
 
 ```
+## Dummy wrapper script
+
+```
+#!/bin/bash
+
+export ZABBIX_URL="https://zabbix.example.com/api_jsonrpc.php"
+export ZABBIX_USERNAME="zabbix"
+export ZABBIX_PASSWORD="zabbix"
+
+/usr/bin/python3 ~/bin/zabbix_led.py &>/dev/null
+```
