@@ -6,11 +6,16 @@ I was using a little bash script to do this, but zabbix upgraded the api in v7, 
 
 ## Example Image
 
-...
+![zabbix-blinkstick](https://github.com/mikejonesey/zabbix_led/assets/8503626/27b55887-0c52-45d7-933b-03e7597c9516)
+
 
 ## Config file
 
 The config file, mapping host group to led is auto generated when it doesn't exist, but if it exists is not overwritten, so led can be re-mapped.
+
+default config path:
+
+- ~/.led.config
 
 example config file:
 
