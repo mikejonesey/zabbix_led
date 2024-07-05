@@ -106,7 +106,7 @@ def update_led(my_hostgroups_health):
                     bstick.set_color(0, led_id_int, 0, 0, 0, "red", "")
                 elif my_hostgroups_health[led_group_id] == "3":
                     # Average
-                    bstick.set_color(0, led_id_int, 0, 0, 0, "", "EE6404")
+                    bstick.set_color(0, led_id_int, 0, 0, 0, "", "#EE6404")
                 elif my_hostgroups_health[led_group_id] == "2":
                     # Warning
                     bstick.set_color(0, led_id_int, 0, 0, 0, "yellow", "")
