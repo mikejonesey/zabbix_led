@@ -25,6 +25,11 @@ def build_config_file(auth_token):
     :param auth_token: from main stage, auth token
     :return: nothing
     """
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": f"Bearer {auth_token}"
+    }
     payload = {
         "method": "trigger.get",
         "params": {
@@ -34,11 +39,10 @@ def build_config_file(auth_token):
             "sortfield": "priority",
             "sortorder": "DESC"
         },
-        "auth": auth_token,
         "jsonrpc": "2.0",
         "id": 1,
     }
-    response = requests.post(ZABBIX_URL, json=payload, timeout=1.5).json()
+    response = requests.post(ZABBIX_URL, json=payload, headers=headers, timeout=1.5).json()
     try:
         assert response["id"] == 1, "Wrong"
         assert response["result"], "No result in response."
@@ -146,6 +150,11 @@ def get_health(auth_token):
     # "output": ["description","priority"], = only output the required data + description
     #
     # SORT BY PRIORITY ASC (highest priority applied last to map)
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": f"Bearer {auth_token}"
+    }
     payload = {
         "method": "trigger.get",
         "params": {
@@ -160,13 +169,12 @@ def get_health(auth_token):
             "sortfield": "priority",
             "sortorder": "ASC"
         },
-        "auth": auth_token,
         "jsonrpc": "2.0",
         "id": 1,
     }
-    response = requests.post(ZABBIX_URL, json=payload, timeout=1.5).json()
+    response = requests.post(ZABBIX_URL, json=payload, headers=headers, timeout=1.5).json()
     try:
-        assert response["result"]
+        assert response["result"] or response["result"] == []
     except AssertionError:
         assert response["error"]
         print(response["error"])
@@ -187,6 +195,10 @@ def main():
     :return:
     """
     # Auth Payload
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
     payload = {
         "method": "user.login",
         "params": {
@@ -196,7 +208,7 @@ def main():
         "jsonrpc": "2.0",
         "id": 0,
     }
-    response = requests.post(ZABBIX_URL, json=payload, timeout=1.5).json()
+    response = requests.post(ZABBIX_URL, json=payload, headers=headers, timeout=1.5).json()
     assert response["result"]
     assert response["id"] == 0
     auth_token = response["result"]
